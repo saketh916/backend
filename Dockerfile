@@ -5,6 +5,9 @@ WORKDIR /app
 
 COPY . .
 
+# Fix permission issue for mvnw
+RUN chmod +x mvnw
+
 RUN ./mvnw clean package -DskipTests
 
 
