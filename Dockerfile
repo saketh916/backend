@@ -3,15 +3,17 @@ FROM eclipse-temurin:17-jdk AS builder
 
 WORKDIR /app
 
+# Copy everything
 COPY . .
 
-# Fix permission issue for mvnw
+# 🔥 THIS LINE IS MANDATORY AND MUST COME BEFORE mvnw RUN
 RUN chmod +x mvnw
 
+# Build Spring Boot app
 RUN ./mvnw clean package -DskipTests
 
 
-# ---------- Run stage ----------
+# ---------- Runtime stage ----------
 FROM eclipse-temurin:17-jre
 
 WORKDIR /app
